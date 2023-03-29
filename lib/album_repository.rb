@@ -14,4 +14,10 @@ class AlbumRepository
     result = DatabaseConnection.exec_params(sql, [])
     return result
   end
+
+  def find(id)
+    sql = 'SELECT title, release_year FROM albums WHERE id = $1;'
+    params = [id]
+    result = DatabaseConnection.exec_params(sql, params)
+  end
 end

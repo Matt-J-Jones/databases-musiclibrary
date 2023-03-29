@@ -6,6 +6,9 @@ DatabaseConnection.connect('music_library')
 
 repository = AlbumRepository.new
 
-repository.print_all.each { |item|
-  puts item["title"]
-}
+# repository.print_all.each { |item|
+#   puts item["title"]
+# }
+
+puts repository.find(3)[0]["title"]
+puts repository.find(3)[0]["release_year"]
