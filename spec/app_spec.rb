@@ -2,7 +2,7 @@ require_relative '../app.rb'
 require_relative '../lib/database_connection'
 
 RSpec.describe Application do
-  it "takes input and returns" do
+  it "takes input  1 and returns albums" do
     io = double :io
     albums = AlbumRepository.new
     artists = ArtistRepository.new
@@ -26,8 +26,33 @@ RSpec.describe Application do
     expect(io).to receive(:puts).with("* 7 - Folklore")
     expect(io).to receive(:puts).with("* 8 - I Put a Spell on You")
     expect(io).to receive(:puts).with("* 9 - Baltimore")
-    expect(io).to receive(:puts).with("* 10 -	Here Comes the Sun")
+    expect(io).to receive(:puts).with("* 10 - Here Comes the Sun")
     expect(io).to receive(:puts).with("* 11 - Fodder on My Wings")
-    expect(io).to receive(:puts).with("* 12 -	Ring Ring")
+    expect(io).to receive(:puts).with("* 12 - Ring Ring")
+
+    app.run
+  end
+
+  it "takes input 2 and returns artists" do
+    io = double :io
+    albums = AlbumRepository.new
+    artists = ArtistRepository.new
+    DatabaseConnection.connect('music_library_test')
+    app = Application.new('music_library_test', io, albums, artists)
+
+    expect(io).to receive(:puts).with("Welcome to the music library manager!")
+    expect(io).to receive(:puts).with("What would you like to do?")
+    expect(io).to receive(:puts).with("1 - List all albums")
+    expect(io).to receive(:puts).with("2 - List all artists")
+    expect(io).to receive(:puts).with("Enter your choice:")
+    expect(io).to receive(:gets).and_return("2")
+
+    expect(io).to receive(:puts).with("Here is the list of artists:")
+    expect(io).to receive(:puts).with("* 1 - Pixies")
+    expect(io).to receive(:puts).with("* 2 - ABBA")
+    expect(io).to receive(:puts).with("* 3 - Taylor Swift")
+    expect(io).to receive(:puts).with("* 4 - Nina Simone")
+
+    app.run
   end
 end

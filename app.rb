@@ -17,29 +17,28 @@ class Application
   def run
     @io.puts "Welcome to the music library manager!"
     @io.puts "What would you like to do?"
+    @io.puts "Enter your choice:"
     @io.puts "1 - List all albums"
     @io.puts "2 - List all artists"
 
     choice = @io.gets.chomp
 
     if choice == '1'
+      @io.puts "Here is the list of albums:"
       albums = @album_repository.all
       albums.each do |album|
         @io.puts "* #{album['id']} - #{album['title']}"
       end
     elsif choice == '2'
-      artist = @artist_repository.all
-      artist.each do |row|
-        @io.puts "* #{row['id']} - #{row['name']}"
+      @io.puts "Here is the list of artists:"
+      artists = @artist_repository.all
+      artists.each do |artist|
+        @io.puts "* #{artist['id']} - #{artist['name']}"
       end
     end
   end
 end
 
-# Don't worry too much about this if statement. It is basically saying "only
-# run the following code if this is the main file being run, instead of having
-# been required or loaded by another file.
-# If you want to learn more about __FILE__ and $0, see here: https://en.wikibooks.org/wiki/Ruby_Programming/Syntax/Variables_and_Constants#Pre-defined_Variables
 if __FILE__ == $0
   app = Application.new(
     'music_library',
