@@ -1,12 +1,8 @@
 require_relative 'database_connection'
 
 class AlbumRepository
-  def initialize
-    #
-  end
-
   def create(album)
-    params = [album.album_title, album.year_of_release, album.artist_id]
+    params = [album.title, album.release_year, album.artist_id]
     sql = 'INSERT INTO albums (title, release_year, artist_id) VALUES ($1, $2, $3);'
     result = DatabaseConnection.exec_params(sql, params)
     
