@@ -12,7 +12,7 @@ class AlbumRepository
     
   end
 
-  def print_all
+  def all
     sql = 'SELECT id, title, release_year FROM albums;'
     result = DatabaseConnection.exec_params(sql, [])
     return result

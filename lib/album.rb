@@ -1,5 +1,6 @@
 class Album
-  def initialize(title, year, artist_id)
+  def initialize(id, title, year, artist_id)
+    @id = id
     @title = title
     @year = year
     @artist_id = artist_id
@@ -15,5 +16,9 @@ class Album
 
   def artist_id
     return @artist_id
+  end
+
+  def id
+    return @id
   end
 end

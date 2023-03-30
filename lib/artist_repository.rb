@@ -11,7 +11,7 @@ class ArtistRepository
     result = DatabaseConnection.exec_params(sql, params)
   end
 
-  def print_all
+  def all
     sql = 'SELECT id, name, genre FROM artists;'
     result = DatabaseConnection.exec_params(sql, [])
     return result

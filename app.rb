@@ -4,28 +4,9 @@ require_relative 'lib/artist_repository'
 
 require_relative 'lib/database_connection'
 require_relative 'lib/album'
-#  DatabaseConnection.connect('music_library')
-
-# repository = AlbumRepository.new
-
-# repository.print_all.each { |item|
-#   puts item["title"]
-# }
-
-# puts repository.find(3)[0]["title"]
-# puts repository.find(3)[0]["release_year"]
-
-# album = Album.new("Ok, Computer", "1997", "7")
-# repository.create(album)
 
 class Application
 
-  # The Application class initializer
-  # takes four arguments:
-  #  * The database name to call `DatabaseConnection.connect`
-  #  * the Kernel object as `io` (so we can mock the IO in our tests)
-  #  * the AlbumRepository object (or a double of it)
-  #  * the ArtistRepository object (or a double of it)
   def initialize(database_name, io = Kernel, album_repository, artist_repository)
     DatabaseConnection.connect(database_name)
     @io = io
@@ -34,13 +15,24 @@ class Application
   end
 
   def run
-    # "Runs" the terminal application
-    # so it can ask the user to enter some input
-    # and then decide to run the appropriate action
-    # or behaviour.
+    @io.puts "Welcome to the music library manager!"
+    @io.puts "What would you like to do?"
+    @io.puts "1 - List all albums"
+    @io.puts "2 - List all artists"
 
-    # Use `@io.puts` or `@io.gets` to
-    # write output and ask for user input.
+    choice = @io.gets.chomp
+
+    if choice == '1'
+      albums = @album_repository.all
+      albums.each do |album|
+        @io.puts "* #{album['id']} - #{album['title']}"
+      end
+    elsif choice == '2'
+      artist = @artist_repository.all
+      artist.each do |row|
+        @io.puts "* #{row['id']} - #{row['name']}"
+      end
+    end
   end
 end
 
